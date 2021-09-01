@@ -10,11 +10,14 @@
 
 class Solution:
     def maxArea(self, height):
-        n = len(height)
         longest_j = height[-1]
-        li = []
+        longest_i = height[0]
+        n = len(height)
+        max_area = n * min(longest_i,longest_j)
         for i in range(n-1):
-            for j in range(i+1,n):
-                if height[j] > longest_j:
-                    li.append((j-i)*min(height[i],height[j]))
-        return max(li)
+            if height[i] >= longest_i:
+                for j in range(i+1,n):
+                    if height[j] >= longest_j:
+                        if (j-i)*min(height[i],height[j]) > max_area:
+                            max_area = (j-i) * min(height[i],height[j])
+        return max_area
